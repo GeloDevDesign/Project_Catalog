@@ -27,7 +27,7 @@ export const useProductStore = defineStore("productStore", {
       filter = []
     ) {
       this.loading = true;
-     
+
       try {
         const response = await fetch(
           `/api/${apiRoute}?page=${page}&per_page=${perPage}&search=${search}&category_id=${filter}`,
@@ -50,15 +50,7 @@ export const useProductStore = defineStore("productStore", {
 
         const data = await response.json();
         this.data = data.data;
-
-        this.pagination = {
-          current_page: data.current_page,
-          last_page: data.last_page,
-          per_page: data.per_page,
-          total: data.total,
-          from: data.from,
-          to: data.to,
-        };
+        this.pagination = data;
       } catch (error) {
         modalAlert(
           "Error",

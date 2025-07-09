@@ -13,7 +13,6 @@ const productStore = useProductStore();
 const { getProducts } = productStore;
 const { data, pagination, loading } = storeToRefs(productStore);
 
-
 const handlePageChange = (page) => {
   getProducts("products", page, 10);
 };
@@ -30,7 +29,7 @@ onMounted(async () => {
         <h2 class="text-xl font-semibold">Your Product List</h2>
       </div>
       <div class="flex gap-2">
-        <FilterSearch/>
+        <FilterSearch />
         <RouterLink :to="{ name: 'add-product' }">
           <PrimaryButton buttonName="Add new product">
             <template #right-icon>
@@ -49,10 +48,10 @@ onMounted(async () => {
       v-else
       class="overflow-x-auto rounded-box border border-base-content/5 bg-white min-h-96"
     >
-      <table class="table table-pin-rows  ">
+      <table class="table table-pin-rows">
         <thead class="bg-base-content">
           <tr class="bg-base-content text-white">
-            <th ></th>
+            <th></th>
             <th>Name</th>
             <th>Sell Price</th>
             <th>Status</th>
@@ -109,7 +108,6 @@ onMounted(async () => {
       </table>
     </div>
 
-    <!-- Pagination component - only show if pagination data exists -->
     <Pagination
       v-if="pagination && pagination.total > 0"
       :pagination="pagination"

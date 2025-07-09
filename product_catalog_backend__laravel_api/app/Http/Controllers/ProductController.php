@@ -74,7 +74,10 @@ class ProductController extends Controller
             $product->categories()->attach($validated['category_ids']);
         }
 
-        return response()->json($product->load('categories'), 201);
+        return response()->json([
+            'message' => 'Added Product Success',
+            'data' => $product->load('categories'),
+        ], 201);
     }
 
     public function update(Request $request, Product $product)
