@@ -33,7 +33,7 @@ const defaultMessages = {
   >
     <div class="text-center gap-4">
       <h5 class="text-4xl font-bold">{{ errorTitles[errorStatus] || errorTitles[404] }}</h5>
-      <p class="opacity-70">{{ errorMessage || defaultMessages[errorStatus] || defaultMessages[404] }}</p>
+     
     </div>
     <RouterLink :to="{ name: 'home' }">
       <PrimaryButton buttonName="Back to Dashboard">
