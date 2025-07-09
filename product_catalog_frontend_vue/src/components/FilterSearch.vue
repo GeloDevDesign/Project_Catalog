@@ -6,7 +6,7 @@ import { useCategoryStore } from "@/stores/category";
 import { useProductStore } from "@/stores/product";
 
 const { getCategories } = useCategoryStore();
-const { paginateProducts } = useProductStore();
+const { getProducts } = useProductStore();
 const { data } = storeToRefs(useCategoryStore());
 const { pagination } = storeToRefs(useProductStore());
 
@@ -16,7 +16,7 @@ const searchValue = ref("");
 const selectedCategory = ref(null);
 
 const debouncedFilter = debounce(() => {
-  paginateProducts("products", 1, 10, searchValue.value, selectedCategory.value);
+  getProducts("products", 1, 10, searchValue.value, selectedCategory.value);
 }, 500);
 
 watch([searchValue, selectedCategory], () => {

@@ -10,16 +10,16 @@ import PrimaryButton from "@/components/PrimaryButton.vue";
 import FilterSearch from "@/components/FilterSearch.vue";
 
 const productStore = useProductStore();
-const { paginateProducts } = productStore;
+const { getProducts } = productStore;
 const { data, pagination, loading } = storeToRefs(productStore);
 
 
 const handlePageChange = (page) => {
-  paginateProducts("products", page, 10);
+  getProducts("products", page, 10);
 };
 
 onMounted(async () => {
-  await paginateProducts("products", 1, 10);
+  await getProducts("products", 1, 10);
 });
 </script>
 

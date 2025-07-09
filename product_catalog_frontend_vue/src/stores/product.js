@@ -4,7 +4,6 @@ import { useToastAlert } from "@/composables/useToast";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 
-import { User } from "lucide-vue-next";
 const { modalAlert } = useModalAlert();
 const { toastAlert } = useToastAlert();
 
@@ -20,32 +19,8 @@ export const useProductStore = defineStore("productStore", {
   },
   getters: () => {},
   actions: {
-    async getProducts(apiRoute) {
-      this.errors = {};
-      try {
-        const response = await fetch(`/api/${apiRoute}`, {
-          method: "GET",
-          headers: {
-            authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
-
-        if (!response.ok) {
-          this.data = {};
-        }
-
-        const data = await response.json();
-        this.data = data.data;
-      } catch (error) {
-        modalAlert(
-          "Error",
-          "An unexpected  while getting product data",
-          "error"
-        );
-      }
-    },
-
-    async paginateProducts(
+   
+    async getProducts(
       apiRoute,
       page = 1,
       perPage = 10,
