@@ -33,10 +33,12 @@ class ProductController extends Controller
 
 
         if ($request->filled('category_id')) {
-            $query->whereHas('categories', function ($q) use ($request) {
-                $q->where('categories.id', $request->category_id);
+            $categoryIds = explode(',', $request->category_id);
+            $query->whereHas('categories', function ($q) use ($categoryIds) {
+                $q->whereIn('categories.id', $categoryIds);
             });
         }
+
 
         $products = $query->paginate($request->per_page ?? 10)
             ->appends($request->query());

@@ -45,11 +45,17 @@ export const useProductStore = defineStore("productStore", {
       }
     },
 
-    async paginateProducts(apiRoute, page = 1, perPage = 10) {
+    async paginateProducts(
+      apiRoute,
+      page = 1,
+      perPage = 10,
+      search = "",
+      filter = []
+    ) {
       this.loading = true;
       try {
         const response = await fetch(
-          `/api/${apiRoute}?page=${page}&per_page=${perPage}`,
+          `/api/${apiRoute}?page=${page}&per_page=${perPage}&search=${search}&category_id=${filter}`,
           {
             method: "GET",
             headers: {
@@ -89,49 +95,6 @@ export const useProductStore = defineStore("productStore", {
       }
     },
 
-    async filterProducts(params = {}) {
-      this.loading = true;
-      try {
-        const queryParams = new URLSearchParams();
-
-        if (params.search) queryParams.append("search", params.search);
-        if (params.category_id)
-          queryParams.append("category_id", params.category_id);
-
-        const response = await fetch(
-          `/api/products?${queryParams.toString()}`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        if (!response.ok) {
-          modalAlert(
-            "Error",
-            "An unexpected  while getting product data",
-            "error"
-          );
-        }
-
-        const data = await response.json();
-        this.data = data.data;
-        this.pagination = data.meta;
-      } catch (error) {
-        modalAlert(
-          "Error",
-          "An unexpected  while getting product data",
-          "error"
-        );
-      } finally {
-        this.loading = false;
-      }
-    },
-
     async getItem(apiRoute) {
       this.errors = {};
       try {
@@ -155,7 +118,7 @@ export const useProductStore = defineStore("productStore", {
         const data = await response.json();
         this.selectedItem = data;
       } catch (error) {
-        console.log(error)
+        console.log(error);
         this.router.push({
           name: "error",
           query: {
@@ -184,7 +147,7 @@ export const useProductStore = defineStore("productStore", {
         if (!response.ok || response.errors) {
           this.errors = data.errors || {};
           toastAlert("Failed to update product", "error");
-         
+
           return;
         }
 
@@ -215,7 +178,7 @@ export const useProductStore = defineStore("productStore", {
         if (!response.ok || response.errors) {
           this.errors = data.errors || {};
           toastAlert("Failed to add product", "error");
-       
+
           return;
         }
 
@@ -254,7 +217,7 @@ export const useProductStore = defineStore("productStore", {
             if (!response.ok || response.errors) {
               this.errors = data.errors || {};
               toastAlert("Failed to delete product", "error");
-             
+
               return;
             }
 
