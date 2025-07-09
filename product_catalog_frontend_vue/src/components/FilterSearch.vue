@@ -10,13 +10,17 @@ const { getProducts } = useProductStore();
 const { data } = storeToRefs(useCategoryStore());
 const { pagination } = storeToRefs(useProductStore());
 
-
-
 const searchValue = ref("");
-const selectedCategory = ref(null);
+const selectedCategory = ref([]);
 
 const debouncedFilter = debounce(() => {
-  getProducts("products", 1, 10, searchValue.value, selectedCategory.value);
+  getProducts(
+    "products",
+    pagination.current_page ?? 1,
+    pagination.per_page ?? 10,
+    searchValue.value,
+    selectedCategory.value
+  );
 }, 500);
 
 watch([searchValue, selectedCategory], () => {
@@ -31,8 +35,8 @@ onMounted(async () => {
 <template>
   <div class="join">
     <input v-model="searchValue" class="input join-item" placeholder="Search" />
-    <select v-model="selectedCategory" class="select join-item max-w-28">
-      <option value="">All Categories</option>
+    <select v-model="selectedCategory" class="select join-item max-w-32">
+      <option selected :value="[]">All Categories</option>
       <option v-for="category in data" :key="category.id" :value="category.id">
         {{ category.name }}
       </option>

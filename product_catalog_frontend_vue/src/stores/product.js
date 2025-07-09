@@ -19,7 +19,6 @@ export const useProductStore = defineStore("productStore", {
   },
   getters: () => {},
   actions: {
-   
     async getProducts(
       apiRoute,
       page = 1,
@@ -28,6 +27,7 @@ export const useProductStore = defineStore("productStore", {
       filter = []
     ) {
       this.loading = true;
+     
       try {
         const response = await fetch(
           `/api/${apiRoute}?page=${page}&per_page=${perPage}&search=${search}&category_id=${filter}`,
@@ -50,7 +50,7 @@ export const useProductStore = defineStore("productStore", {
 
         const data = await response.json();
         this.data = data.data;
-        console.log(this.data);
+
         this.pagination = {
           current_page: data.current_page,
           last_page: data.last_page,
@@ -93,7 +93,6 @@ export const useProductStore = defineStore("productStore", {
         const data = await response.json();
         this.selectedItem = data;
       } catch (error) {
-        console.log(error);
         this.router.push({
           name: "error",
           query: {

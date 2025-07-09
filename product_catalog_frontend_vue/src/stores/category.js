@@ -22,7 +22,7 @@ export const useCategoryStore = defineStore("categoryStore", {
 
         const data = await response.json();
         this.data = data
-        console.log(this.data)
+       
 
       } catch (error) {
         modalAlert("Error", "An unexpected  while getting product data", "error");
