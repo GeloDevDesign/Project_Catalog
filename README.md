@@ -2,7 +2,21 @@
 
 **Sytian IT Productions Inc.**
 
-This GitHub repository contains the source code for my technical exam as part of my application for the Full Stack Developer position at **Sytian IT Productions Inc.**
+**Default Test Account:**
+Email: `test@example.com`
+Password: `Password1234`
+
+You may check the **UserSeeder** for the default account details.
+When running:
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+The seeded account will be:
+
+* **Email:** `test@example.com`
+* **Password:** `Password1234`
 
 ---
 
@@ -68,16 +82,6 @@ This GitHub repository contains the source code for my technical exam as part of
    ```
 
 5. Update your `.env` file to configure your local database connection.
-
----
-
-## Additional Notes
-
-* Make sure you have **Node.js** and **npm** installed for the frontend.
-* Make sure you have **PHP** and **Composer** installed for the backend.
-* The backend uses **Laravel** and typically runs on `http://127.0.0.1:8000`.
-* The frontend uses **Vite** and typically runs on `http://localhost:5173`.
-
 ---
 
 Thank you for reviewing my submission.
